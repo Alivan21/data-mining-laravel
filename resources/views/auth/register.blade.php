@@ -71,17 +71,19 @@
       />
     </div>
 
-    <div class="mt-4 flex items-center justify-end">
+    <div class="mt-4 flex items-center">
+      <x-primary-button class="flex flex-1 justify-center">
+        {{ __("Register") }}
+      </x-primary-button>
+    </div>
+
+    <div class="mt-4 flex items-center">
       <a
-        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         href="{{ route("login") }}"
+        class="text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         {{ __("Already registered?") }}
       </a>
-
-      <x-primary-button class="ml-4">
-        {{ __("Register") }}
-      </x-primary-button>
     </div>
   </form>
 </x-guest-layout>

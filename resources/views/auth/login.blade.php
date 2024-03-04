@@ -35,6 +35,14 @@
       />
 
       <x-input-error :messages="$errors->get('password')" class="mt-2" />
+      @if (Route::has("password.request"))
+        <a
+          class="mt-2 rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          href="{{ route("password.request") }}"
+        >
+          {{ __("Forgot your password?") }}
+        </a>
+      @endif
     </div>
 
     <!-- Remember Me -->
@@ -50,19 +58,19 @@
       </label>
     </div>
 
-    <div class="mt-4 flex items-center justify-end">
-      @if (Route::has("password.request"))
-        <a
-          class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          href="{{ route("password.request") }}"
-        >
-          {{ __("Forgot your password?") }}
-        </a>
-      @endif
-
-      <x-primary-button class="ml-3">
-        {{ __("Log in") }}
+    <div class="mt-4 flex items-center">
+      <x-primary-button class="flex flex-1 justify-center">
+        {{ __("Login") }}
       </x-primary-button>
+    </div>
+
+    <div class="mt-4 flex items-center">
+      <a
+        href="{{ route("register") }}"
+        class="text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        {{ __('Don\'t have an account?') }}
+      </a>
     </div>
   </form>
 </x-guest-layout>
