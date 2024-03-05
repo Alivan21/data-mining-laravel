@@ -43,6 +43,21 @@
               class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
               value="{{ old('price', $barang->harga) }}" required />
           </div>
+          <div class="mb-5">
+            <label for="category" class="mb-2 block text-sm font-medium text-gray-900">
+              Kategori
+            </label>
+            <select id="category" name="kategori_id"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
+              required>
+              <option value="" disabled>Pilih Kategori</option>
+              @foreach ($semuaKategori as $kategori)
+                <option value="{{ $kategori->id }}" @if ($kategori->id === $barang->kategori_id) selected @endif>
+                  {{ $kategori->nama }}
+                </option>
+              @endforeach
+            </select>
+          </div>
           <div class="flex">
             <button type="submit"
               class="ms-auto w-full rounded-lg bg-indigo-700 px-8 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 sm:w-auto">

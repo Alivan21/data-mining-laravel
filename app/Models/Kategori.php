@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class Kategori extends Model
 {
   use HasFactory;
 
-  protected $table = 'barang';
+  protected $table = 'kategori';
   protected $guarded = [
     'id',
     'created_at',
     'updated_at',
   ];
 
-  public function kategori()
+  public function barang()
   {
-    return $this->belongsTo(Kategori::class);
+    return $this->hasMany(Barang::class);
   }
 }

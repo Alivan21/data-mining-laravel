@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,7 +17,8 @@ class BarangController extends Controller
   public function index()
   {
     $semuaBarang = Barang::query()->paginate(10);
-    return view('barang.index', compact('semuaBarang'));
+    $semuaKategori = Kategori::all();
+    return view('barang.index', compact('semuaBarang', 'semuaKategori'));
   }
 
   /**
@@ -26,7 +28,8 @@ class BarangController extends Controller
    */
   public function create()
   {
-    return view('barang.create');
+    $semuaKategori = Kategori::all();
+    return view('barang.create', compact('semuaKategori'));
   }
 
   /**
@@ -39,6 +42,7 @@ class BarangController extends Controller
   {
     $request->validate([
       'nama' => 'required',
+      'kategori_id' => 'required|exists:kategori,id',
       'harga' => 'required|numeric',
     ]);
 
@@ -72,7 +76,8 @@ class BarangController extends Controller
   public function edit(Barang $barang)
   {
     $barang = Barang::query()->find($barang->id);
-    return view('barang.edit', compact('barang'));
+    $semuaKategori = Kategori::all();
+    return view('barang.edit', compact('barang', 'semuaKategori'));
   }
 
   /**
@@ -86,6 +91,7 @@ class BarangController extends Controller
   {
     $request->validate([
       'nama' => 'required',
+      'kategori_id' => 'required|exists:kategori,id',
       'harga' => 'required|numeric',
     ]);
 
