@@ -120,8 +120,6 @@ class AprioriController extends Controller
     $dataMinConfidence = NilaiKombinasi::where('kode_pengujian', $kdPengujian)->where('support', '>=', $dataPengujian->min_confidence)->get();
     $totalBarang = Barang::count();
 
-    dd($dataMinConfidence);
-
     return view('apriori.hasil', compact('dataPengujian', 'dataSupportBarang', 'dataMinSupp', 'dataKombinasiItemSet', 'dataMinConfidence', 'totalBarang'));
   }
 
