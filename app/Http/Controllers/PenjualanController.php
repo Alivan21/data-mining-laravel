@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\PenjualanImport;
 use App\Models\Barang;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PenjualanController extends Controller
 {
@@ -17,12 +20,12 @@ class PenjualanController extends Controller
    */
   public function index()
   {
-    // select distinct no_faktur from penjualan order by created_at desc paginate(10)
-    $dataPenjualan = Penjualan::select('no_faktur', 'created_at')
-      ->distinct()
-      ->orderBy('created_at', 'desc')
-      ->paginate(10);
-    return view('penjualan.index', compact('dataPenjualan'));
+    $currentPage = request()->input('page') ?? 1; // Get current page
+    $perPage = 10; // Items per page (assuming 10)
+    $startingRow = ($currentPage - 1) * $perPage; // Calculate starting row
+
+    $dataPenjualan = Penjualan::distinct()->get(['no_faktur', 'created_at']);
+    return view('penjualan.index', compact('dataPenjualan', 'startingRow'));
   }
 
   /**
@@ -107,5 +110,34 @@ class PenjualanController extends Controller
   public function destroy(Penjualan $penjualan)
   {
     //
+  }
+
+  public function import(Request $request)
+  {
+    if (!$request->hasFile('file')) {
+      Alert::error("File tidak ditemukan", "Terjadi kesalahan");
+      return back();
+    }
+    $request->validate([
+      'file' => 'required|mimes:xlsx,xls',
+    ]);
+
+    try {
+      $file = $request->file('file');
+      $namaFile = time() . '.' . $file->getClientOriginalExtension();
+      //temporary file
+      $path = $file->storeAs('public/excel/', $namaFile);
+
+      $import = Excel::import(new PenjualanImport(), storage_path('app/public/excel/' . $namaFile));
+      Storage::delete($path);
+      if (!$import) {
+        throw new \Exception("Gagal mengimport data Penjualan");
+      }
+      Alert::toast('Data Penjualan berhasil diimport', 'success');
+      return redirect()->route('penjualan.index');
+    } catch (\Throwable $th) {
+      Alert::error("Gagal mengimport data Penjualan", $th->getMessage());
+      return back();
+    }
   }
 }

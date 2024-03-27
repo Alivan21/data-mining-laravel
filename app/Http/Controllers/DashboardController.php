@@ -16,7 +16,12 @@ class DashboardController extends Controller
     $totalHarga = Barang::sum('harga');
     $totalUser = User::count();
     $transaksiTerakhir = Penjualan::distinct()->take(10)->get(['no_faktur', 'created_at']);
-    $average = $totalHarga / $totalBarang;
+    if ($totalPenjualan == 0) {
+      $average = 0;
+    } else {
+      // Calculate average price (total price / total items sold)
+      $average = $totalHarga / $totalBarang;
+    }
 
     return view('dashboard', compact('totalBarang', 'totalPenjualan', 'totalHarga', 'transaksiTerakhir', 'average', 'totalUser'));
   }

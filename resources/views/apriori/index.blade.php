@@ -30,18 +30,23 @@
               required />
           </div>
           <div class="mb-5">
-            <label for="support" class="mb-2 block text-sm font-medium text-gray-900">
-              Nilai Support
+            <label for="min_support" class="mb-2 block text-sm font-medium text-gray-900">
+              Nilai Support <b class="text-xs text-red-400">
+                *Semakin rendah nilai support akan semakin
+                banyak proses yang
+                mengakibatkan proses apriori menjadi lama
+              </b>
             </label>
-            <input type="number" id="support" name="support" min="1" max="100" step="0.01"
+            <input type="number" id="min_support" name="min_support" min="1" max="100"
+              step="0.01"
               class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
               required />
           </div>
           <div class="mb-5">
-            <label for="confidence" class="mb-2 block text-sm font-medium text-gray-900">
+            <label for="min_confidence" class="mb-2 block text-sm font-medium text-gray-900">
               Nilai Confidence
             </label>
-            <input type="number" id="confidence" name="confidence" min="1" max="100"
+            <input type="number" id="min_confidence" name="min_confidence" min="1" max="100"
               step="0.01"
               class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
               required />

@@ -15,8 +15,12 @@ class KategoriController extends Controller
    */
   public function index()
   {
+    $currentPage = request()->input('page') ?? 1; // Get current page
+    $perPage = 10; // Items per page (assuming 10)
+    $startingRow = ($currentPage - 1) * $perPage; // Calculate starting row
+
     $semuaKategori = Kategori::query()->paginate(10);
-    return view('kategori.index', compact('semuaKategori'));
+    return view('kategori.index', compact('semuaKategori', 'startingRow'));
   }
 
   /**

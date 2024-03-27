@@ -41,7 +41,7 @@
               @foreach ($semuaKategori as $kategori)
                 <tr class="bg-white border-b">
                   <td class="px-6 py-4 whitespace-no-wrap border-gray-200">
-                    <div class="text-sm leading-5 text-gray-900">{{ $loop->iteration }}</div>
+                    <div class="text-sm leading-5 text-gray-900">{{ $startingRow + $loop->iteration }}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-gray-200">
                     <div class="text-sm leading-5 text-gray-900">{{ $kategori->nama }}</div>
@@ -67,12 +67,7 @@
               @endforeach
             </tbody>
           </table>
-          <nav class="flex items-center justify-between p-4 border-t" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500">
-              Showing <span class="font-semibold text-gray-900">{{ $semuaKategori->firstItem() }}</span>
-              - <span class="font-semibold text-gray-900">{{ $semuaKategori->lastItem() }}</span>
-              of <span class="font-semibold text-gray-900">{{ $semuaKategori->total() }}</span>
-            </span>
+          <nav class="p-4 border-t" aria-label="Table navigation">
             {{ $semuaKategori->links() }}
           </nav>
         </div>

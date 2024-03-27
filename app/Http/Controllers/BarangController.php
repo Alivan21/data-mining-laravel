@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\BarangImport;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BarangController extends Controller
@@ -16,9 +19,13 @@ class BarangController extends Controller
    */
   public function index()
   {
+    $currentPage = request()->input('page') ?? 1; // Get current page
+    $perPage = 10; // Items per page (assuming 10)
+    $startingRow = ($currentPage - 1) * $perPage; // Calculate starting row
+
     $semuaBarang = Barang::query()->paginate(10);
     $semuaKategori = Kategori::all();
-    return view('barang.index', compact('semuaBarang', 'semuaKategori'));
+    return view('barang.index', compact('semuaBarang', 'semuaKategori', 'startingRow'));
   }
 
   /**
@@ -123,6 +130,36 @@ class BarangController extends Controller
       return redirect()->route('barang.index');
     } catch (\Throwable $th) {
       Alert::error("Gagal menghapus barang", "Terjadi kesalahan");
+      return back();
+    }
+  }
+
+  public function import(Request $request)
+  {
+    $request->validate([
+      'file' => 'required|mimes:xlsx,xls',
+    ]);
+
+    if (!$request->hasFile('file')) {
+      Alert::error("File tidak ditemukan", "Terjadi kesalahan");
+      return back();
+    }
+
+    try {
+      $file = $request->file('file');
+      $namaFile = time() . '.' . $file->getClientOriginalExtension();
+      //temporary file
+      $path = $file->storeAs('public/excel/', $namaFile);
+
+      $import = Excel::import(new BarangImport(), storage_path('app/public/excel/' . $namaFile));
+      Storage::delete($path);
+      if (!$import) {
+        throw new \Exception("Gagal mengimport data barang");
+      }
+      Alert::toast('Data barang berhasil diimport', 'success');
+      return redirect()->route('barang.index');
+    } catch (\Throwable $th) {
+      Alert::error("Gagal mengimport data barang", $th->getMessage());
       return back();
     }
   }

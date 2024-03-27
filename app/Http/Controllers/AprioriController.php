@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\Pengujian;
 use App\Models\Barang;
 use App\Models\NilaiKombinasi;
 use App\Models\Penjualan;
 use App\Models\Support;
-use Barryvdh\DomPDF\Facade\Pdf as PDF;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class AprioriController extends Controller
 {
@@ -90,9 +90,9 @@ class AprioriController extends Controller
         $fnTransaksi = 0;
         foreach ($dataFaktur as $faktur) {
           $noFaktur = $faktur->no_faktur;
-          $qProdukA = Penjualan::where('no_faktur', $noFaktur)->where('barang_id', $kdProdukA)->count();
-          $qProdukB = Penjualan::where('no_faktur', $noFaktur)->where('barang_id', $kdProdukB)->count();
-          if ($qProdukA > 0 && $qProdukB > 0) {
+          $qBonTransaksiA = Penjualan::where('no_faktur', $noFaktur)->where('barang_id', $kdProdukA)->count();
+          $qBonTransaksiB = Penjualan::where('no_faktur', $noFaktur)->where('barang_id', $kdProdukB)->count();
+          if ($qBonTransaksiA == 1 && $qBonTransaksiB == 1) {
             $fnTransaksi++;
           }
         }
@@ -119,6 +119,8 @@ class AprioriController extends Controller
     $dataKombinasiItemSet = NilaiKombinasi::where('kode_pengujian', $kdPengujian)->get();
     $dataMinConfidence = NilaiKombinasi::where('kode_pengujian', $kdPengujian)->where('support', '>=', $dataPengujian->min_confidence)->get();
     $totalBarang = Barang::count();
+
+    dd($dataMinConfidence);
 
     return view('apriori.hasil', compact('dataPengujian', 'dataSupportBarang', 'dataMinSupp', 'dataKombinasiItemSet', 'dataMinConfidence', 'totalBarang'));
   }

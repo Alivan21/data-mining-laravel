@@ -21,7 +21,7 @@ class Pengujian extends Model
   public function totalPolaProduk($kdPengujian, $confidence)
   {
     return NilaiKombinasi::where('kode_pengujian', $kdPengujian)
-      ->where('confidence', '>=', $confidence)
+      ->where('support', '>=', $confidence)
       ->count();
   }
 }

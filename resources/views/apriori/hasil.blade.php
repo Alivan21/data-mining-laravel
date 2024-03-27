@@ -43,7 +43,7 @@
                     {{ $supp->totalTransaksi($supp->barang_id) }}
                   </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                    ({{ $supp->totalTransaksi($supp->barang_id) }} / {{ $totalProduk }})
+                    ({{ $supp->totalTransaksi($supp->barang_id) }} / {{ $totalBarang }})
                     * 100
                   </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
@@ -54,7 +54,8 @@
             </tbody>
           </table>
           <nav class="p-4 border-t" aria-label="Table navigation">
-            <p>Item yang memenuhi syarat minimun support {{ $dataPengujian->min_support }} %</p>
+            <p class="font-semibold">Item yang memenuhi syarat minimun support
+              {{ $dataPengujian->min_support }} %</p>
           </nav>
           <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
@@ -81,7 +82,7 @@
             </tbody>
           </table>
           <nav class="p-4 border-t" aria-label="Table navigation">
-            <p>Kombinasi 2 itemset</p>
+            <p class="font-semibold">Kombinasi 2 itemset</p>
           </nav>
           <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
@@ -114,7 +115,7 @@
                     {{ $itemSet->jumlah_transaksi }}
                   </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                    ({{ $itemSet->jumlah_transaksi }} / {{ $totalProduk }})
+                    ({{ $itemSet->jumlah_transaksi }} / {{ $totalBarang }})
                     * 100
                   </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
@@ -125,7 +126,8 @@
             </tbody>
           </table>
           <nav class="p-4 border-t" aria-label="Table navigation">
-            <p>Kombinasi yang memenuhi minimum confidence > {{ $dataPengujian->min_confidence }}%</p>
+            <p class="font-semibold">Kombinasi yang memenuhi minimum confidence >
+              {{ $dataPengujian->min_confidence }}%</p>
           </nav>
           <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
@@ -158,7 +160,7 @@
                     {{ $itemSet->jumlah_transaksi }}
                   </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                    ({{ $itemSet->jumlah_transaksi }} / {{ $totalProduk }})
+                    ({{ $itemSet->jumlah_transaksi }} / {{ $totalBarang }})
                     * 100
                   </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
@@ -169,7 +171,7 @@
             </tbody>
           </table>
           <nav class="p-4 border-t" aria-label="Table navigation">
-            <p>Pola hasil analisa</p>
+            <p class="font-semibold">Pola hasil analisa</p>
           </nav>
           <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
