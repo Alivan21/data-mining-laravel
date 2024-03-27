@@ -24,6 +24,12 @@
           <x-nav-link :href="route('penjualan.index')" :active="request()->routeIs('penjualan*')">
             {{ __('Data Penjualan') }}
           </x-nav-link>
+          <x-nav-link :href="route('apriori.index')" :active="request()->routeIs('apriori*')">
+            {{ __('Proses Apriori') }}
+          </x-nav-link>
+          <x-nav-link :href="route('laporan.index')" :active="request()->routeIs('laporan*')">
+            {{ __('Laporan') }}
+          </x-nav-link>
         </div>
       </div>
 
@@ -93,6 +99,12 @@
       </x-responsive-nav-link>
       <x-responsive-nav-link :href="route('penjualan.index')" :active="request()->routeIs('penjualan*')">
         {{ __('Data Penjualan') }}
+      </x-responsive-nav-link>
+      <x-responsive-nav-link :href="route('apriori.index')" :active="request()->routeIs('apriori*')">
+        {{ __('Proses Apriori') }}
+      </x-responsive-nav-link>
+      <x-responsive-nav-link :href="route('laporan.index')" :active="request()->routeIs('laporan*')">
+        {{ __('Laporan') }}
       </x-responsive-nav-link>
     </div>
 

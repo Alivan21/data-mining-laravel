@@ -15,8 +15,8 @@ return new class extends Migration
   {
     Schema::create('nilai_kombinasi', function (Blueprint $table) {
       $table->id();
-      $table->char('kode_pengujian', 63);
-      $table->char('kode_kombinasi', 63);
+      $table->char('kode_pengujian', 127);
+      $table->char('kode_kombinasi', 127);
       $table->foreignId('barang_id_a')->constrained('barang');
       $table->foreignId('barang_id_b')->constrained('barang');
       $table->integer('jumlah_transaksi');

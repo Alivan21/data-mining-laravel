@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AprioriController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
-  Route::get('/', function () {
-    return view('dashboard');
-  })->name('dashboard');
+  Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
   Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
   Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
@@ -43,6 +44,13 @@ Route::middleware('auth')->group(function () {
   Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create');
   Route::post('/penjualan', [PenjualanController::class, 'store'])->name('penjualan.store');
   Route::get('/penjualan/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
+
+  Route::get('/apriori', [AprioriController::class, 'index'])->name('apriori.index');
+  Route::post('/apriori/proses', [AprioriController::class, 'prosesAnalisaApriori'])->name('apriori.proses');
+  Route::get('/apriori/{pengujian}', [AprioriController::class, 'hasilAnalisaApriori'])->name('apriori.show');
+  Route::get('/apriori/cetak/{pengujian}', [AprioriController::class, 'cetakAnalisa'])->name('apriori.pdf');
+
+  Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -15,7 +15,7 @@ return new class extends Migration
   {
     Schema::create('support', function (Blueprint $table) {
       $table->id();
-      $table->char('kode_pengujian', 63);
+      $table->char('kode_pengujian', 127);
       $table->foreignId('barang_id')->constrained('barang');
       $table->float('support');
       $table->timestamps();

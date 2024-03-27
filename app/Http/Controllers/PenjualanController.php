@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class PenjualanController extends Controller
 {
@@ -32,7 +33,7 @@ class PenjualanController extends Controller
   public function create()
   {
     $semuaBarang = Barang::all();
-    $noFaktur = 'F' . date('YmdHis');
+    $noFaktur = Str::uuid();
     return view('penjualan.create', compact('semuaBarang', 'noFaktur'));
   }
 

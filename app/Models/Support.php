@@ -26,8 +26,8 @@ class Support extends Model
     return Barang::where('id', $barang_id)->first();
   }
 
-  public function totalTransaksi()
+  public function totalTransaksi($barang_id)
   {
-    return Penjualan::where('barang_id', $this->barang_id)->count();
+    return Penjualan::where('barang_id', $barang_id)->count();
   }
 }
