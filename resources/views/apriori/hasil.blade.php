@@ -88,7 +88,6 @@
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
               <tr>
                 <th scope="col" class="px-6 py-3">No</th>
-                <th scope="col" class="px-6 py-3">Kode Kombinasi</th>
                 <th scope="col" class="px-6 py-3">Barang A</th>
                 <th scope="col" class="px-6 py-3">Barang B</th>
                 <th scope="col" class="px-6 py-3">Jumlah Transaksi</th>
@@ -101,9 +100,6 @@
                 <tr class="border-b bg-white hover:bg-gray-50">
                   <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                     {{ $loop->iteration }}
-                  </th>
-                  <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                    {{ $itemSet->kode_kombinasi }}
                   </th>
                   <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                     {{ $itemSet->dataBarang($itemSet->barang_id_a)->nama }}
@@ -133,7 +129,6 @@
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
               <tr>
                 <th scope="col" class="px-6 py-3">No</th>
-                <th scope="col" class="px-6 py-3">Kode Kombinasi</th>
                 <th scope="col" class="px-6 py-3">Barang A</th>
                 <th scope="col" class="px-6 py-3">Barang B</th>
                 <th scope="col" class="px-6 py-3">Jumlah Transaksi</th>
@@ -147,9 +142,6 @@
                   <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                     {{ $loop->iteration }}
                   </th>
-                  <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                    {{ $itemSet->kode_kombinasi }}
-                  </td>
                   <td scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                     {{ $itemSet->dataBarang($itemSet->barang_id_a)->nama }}
                   </td>

@@ -82,9 +82,9 @@
               @endforeach
             </tbody>
           </table>
-          {{-- <nav class="p-4 border-t" aria-label="Table navigation">
+          <nav class="p-4 border-t" aria-label="Table navigation">
             {{ $dataPenjualan->links() }}
-          </nav> --}}
+          </nav>
         </div>
       </div>
     </div>
