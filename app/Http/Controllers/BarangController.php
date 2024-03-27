@@ -64,7 +64,11 @@ class BarangController extends Controller
    */
   public function show(Barang $barang)
   {
-    //
+    $barang = Barang::query()->find($barang->id);
+    if (!$barang) {
+      return response()->json(['message' => 'Barang tidak ditemukan'], 404);
+    }
+    return response()->json($barang);
   }
 
   /**

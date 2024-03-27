@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="text-xl font-semibold leading-tight text-gray-800">
-      {{ __('Katgeori') }}
+      {{ __('Kategori') }}
     </h2>
   </x-slot>
 
@@ -33,17 +33,17 @@
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
               <tr>
                 <th scope="col" class="px-6 py-3">No</th>
-                <th scope="col" class="px-6 py-3">Nama Katgeori</th>
+                <th scope="col" class="px-6 py-3">Nama Kategori</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($semuaKategori as $kategori)
-                <tr class="bg-white">
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <tr class="bg-white border-b">
+                  <td class="px-6 py-4 whitespace-no-wrap border-gray-200">
                     <div class="text-sm leading-5 text-gray-900">{{ $loop->iteration }}</div>
                   </td>
-                  <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <td class="px-6 py-4 whitespace-no-wrap border-gray-200">
                     <div class="text-sm leading-5 text-gray-900">{{ $kategori->nama }}</div>
                   </td>
                   <td class="px-6 py-4">

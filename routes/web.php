@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
   Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
   Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+  Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
   Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit');
   Route::patch('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update');
   Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy');
@@ -36,6 +38,11 @@ Route::middleware('auth')->group(function () {
   Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
   Route::patch('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
   Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
+  Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+  Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create');
+  Route::post('/penjualan', [PenjualanController::class, 'store'])->name('penjualan.store');
+  Route::get('/penjualan/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
 
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
