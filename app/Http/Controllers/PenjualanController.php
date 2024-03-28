@@ -24,10 +24,17 @@ class PenjualanController extends Controller
     $perPage = 10; // Items per page (assuming 10)
     $startingRow = ($currentPage - 1) * $perPage; // Calculate starting row
 
+    $selectedMonth = request()->get('filterMonth');
+
     $dataPenjualan = Penjualan::select('no_faktur', 'created_at')
       ->groupBy('no_faktur', 'created_at')
-      ->distinct()
-      ->paginate(10);
+      ->distinct();
+    // Apply filter based on selected month
+    if ($selectedMonth) {
+      $dataPenjualan->whereMonth('created_at', $selectedMonth);
+    }
+
+    $dataPenjualan = $dataPenjualan->paginate(10);
     return view('penjualan.index', compact('dataPenjualan', 'startingRow'));
   }
 

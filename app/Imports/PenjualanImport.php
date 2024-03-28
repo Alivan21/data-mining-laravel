@@ -18,10 +18,16 @@ class PenjualanImport implements ToModel
   {
     $namaBarang = $row[1];
     $dataBarang = Barang::where('nama', $namaBarang)->first();
-    return new Penjualan([
-      'no_faktur' => $row[0],
-      'barang_id' => $dataBarang->id ?? 1,
-      'qty' => $row[2],
-    ]);
+    $qty = $row[2];
+
+    if ($qty >= 50) {
+      return new Penjualan([
+        'no_faktur' => $row[0],
+        'barang_id' => $dataBarang->id ?? 1,
+        'qty' => $qty,
+      ]);
+    } else {
+      return null;
+    }
   }
 }
