@@ -77,8 +77,9 @@ class PenjualanController extends Controller
   public function show(Penjualan $penjualan)
   {
     $penjualan = Penjualan::where('no_faktur', $penjualan->no_faktur)->get();
+    $no_faktur = $penjualan->first()->no_faktur;
     $semuaBarang = Barang::all();
-    return view('penjualan.show', compact('penjualan', 'semuaBarang'));
+    return view('penjualan.show', compact('penjualan', 'semuaBarang', 'no_faktur'));
   }
 
   /**

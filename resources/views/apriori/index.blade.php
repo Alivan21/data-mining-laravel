@@ -66,6 +66,7 @@
     $(document).ready(function() {
       $('#submit-button').click(function(e) {
         e.preventDefault();
+        $(this).prop('disabled', true);
 
         Swal.fire({
           title: 'Konfirmasi Analisa Penjualan',
@@ -77,10 +78,13 @@
           confirmButtonText: 'Ya, Analisa Sekarang!'
         }).then((result) => {
           if (result.isConfirmed) {
-            $(this).closest('form').submit(); // Submit form on confirmation
+            $(this).closest('form').submit();
+          } else {
+            $(this).prop('disabled', false);
           }
         });
       });
     });
   </script>
+
 </x-app-layout>

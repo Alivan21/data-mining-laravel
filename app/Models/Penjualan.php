@@ -16,6 +16,11 @@ class Penjualan extends Model
     'updated_at',
   ];
 
+  public function dataBarang($kdBarang)
+  {
+    return Barang::where('id', $kdBarang)->first();
+  }
+
   public function hitungTransaksi($idTransaksi)
   {
     return $this->where('no_faktur', $idTransaksi)->count();
