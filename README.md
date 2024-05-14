@@ -30,10 +30,9 @@ To run the project, follow these steps:
 5. Configure the database connection in the `.env` file.
 6. Run the database migrations using `php artisan migrate:fresh --seed`.
 7. Run `npm install` to install the required npm packages.
-8. Run `php artisan createFakePenjualan 100` to create fake data for the penjualan table. The number 100 is the number of fake data you want to create. You can change it to any number you want.
-9. Start npm with `npm run dev`.
-10. Start the development server with `php artisan serve`.
-11. Access the application in your browser at `http://localhost:8000`.
+8. Start npm with `npm run dev`.
+9. Start the development server with `php artisan serve`.
+10. Access the application in your browser at `http://localhost:8000`.
 
 That's it! You should now be able to run the Laravel project successfully.
 
