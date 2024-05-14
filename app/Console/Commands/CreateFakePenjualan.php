@@ -33,7 +33,7 @@ class CreateFakePenjualan extends Command
     Penjualan::truncate();
     $argument = $this->argument('tf');
     $bahanArgument = explode('=', $argument);
-    for ($i = 0; $i < $bahanArgument[1]; $i++) {
+    for ($i = 0; $i < $bahanArgument[0]; $i++) {
       $kdFaktur = Str::uuid();
       $jarak = rand(0, 15);
       $dataBarangTemp = array();

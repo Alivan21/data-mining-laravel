@@ -36,12 +36,12 @@
               value="{{ old('name', $barang->nama) }}" required />
           </div>
           <div class="mb-5">
-            <label for="price" class="mb-2 block text-sm font-medium text-gray-900">
-              Harga
+            <label for="jumlah" class="mb-2 block text-sm font-medium text-gray-900">
+              Jumlah
             </label>
-            <input type="number" id="price" name="harga"
+            <input type="number" id="jumlah" name="jumlah" min="50"
               class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
-              value="{{ old('price', $barang->harga) }}" required />
+              value="{{ old('jumlah', $barang->jumlah) }}" required />
           </div>
           <div class="mb-5">
             <label for="category" class="mb-2 block text-sm font-medium text-gray-900">

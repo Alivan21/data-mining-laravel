@@ -24,10 +24,10 @@
         </div>
         <div class="p-4 max-w-72 grow bg-white rounded-lg flex flex-col gap-8">
           <div class="flex justify-between items-center">
-            <h2 class="text-xl font-semibold text-gray-800">Avg. Harga Produk</h2>
+            <h2 class="text-xl font-semibold text-gray-800">Avg. Jumlah Produk</h2>
             <i class="fa-solid text-indigo-600 text-xl fa-tags"></i>
           </div>
-          <p class="text-xl font-semibold text-gray-800">@currency($average)</p>
+          <p class="text-xl font-semibold text-gray-800">{{ $average }}</p>
         </div>
         <div class="p-4 max-w-72 grow bg-white rounded-lg flex flex-col gap-8">
           <div class="flex justify-between items-center">
@@ -46,7 +46,6 @@
               <th scope="col" class="px-6 py-3">No Faktur</th>
               <th scope="col" class="px-6 py-3">Waktu Transaksi</th>
               <th scope="col" class="px-6 py-3">Total Produk</th>
-              <th scope="col" class="px-6 py-3">Nominal Transaksi</th>
             </tr>
           </thead>
           <tbody>
@@ -66,11 +65,6 @@
                 <td class="px-6 py-4">
                   <span class="text-sm font-medium text-gray-900">
                     {{ $transaksi->hitungTotalQt($transaksi->no_faktur) }}
-                  </span>
-                </td>
-                <td class="px-6 py-4">
-                  <span class="line-clamp-2">
-                    @currency($transaksi->getTotalHarga($transaksi->no_faktur))
                   </span>
                 </td>
               </tr>

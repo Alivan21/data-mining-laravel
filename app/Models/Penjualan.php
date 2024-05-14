@@ -36,16 +36,6 @@ class Penjualan extends Model
     return $this->where('no_faktur', $idTransaksi)->first()->created_at;
   }
 
-  public function getTotalHarga($idTransaksi)
-  {
-    $totalHarga = 0;
-    $penjualan = $this->where('no_faktur', $idTransaksi)->get();
-    foreach ($penjualan as $item) {
-      $totalHarga += $item->qty * $item->barang->harga;
-    }
-    return $totalHarga;
-  }
-
   public function barang()
   {
     return $this->belongsTo(Barang::class);

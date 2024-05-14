@@ -16,11 +16,11 @@ class KategoriSeeder extends Seeder
   public function run()
   {
     $kategori = [
-      "SAYURAN",
-      "MINYAK",
-      "TELUR",
-      "TEPUNG",
-      "SIRUP",
+      "ELEKTRONIK",
+      "PAKAIAN",
+      "BAJU",
+      "CELANA",
+      "AKSESORIS",
       "MAKANAN RINGAN",
       "BUMBU",
       "DAGING",

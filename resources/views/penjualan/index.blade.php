@@ -70,7 +70,6 @@
                 <th scope="col" class="px-6 py-3">No Faktur</th>
                 <th scope="col" class="px-6 py-3">Tanggal Transaksi</th>
                 <th scope="col" class="px-6 py-3">Total Qt</th>
-                <th scope="col" class="px-6 py-3">Total Harga</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
               </tr>
             </thead>
@@ -89,11 +88,6 @@
                   <td class="max-w-lg px-6 py-4">
                     <span class="line-clamp-2">
                       {{ $penjualan->hitungTotalQt($penjualan->no_faktur) }}
-                    </span>
-                  </td>
-                  <td class="max-w-lg px-6 py-4">
-                    <span class="line-clamp-2">
-                      @currency($penjualan->getTotalHarga($penjualan->no_faktur))
                     </span>
                   </td>
                   <td class="px-6 py-4">

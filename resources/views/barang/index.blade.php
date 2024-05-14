@@ -41,9 +41,10 @@
             <thead class="bg-gray-50 text-xs uppercase text-gray-700">
               <tr>
                 <th scope="col" class="px-6 py-3">No</th>
-                <th scope="col" class="px-6 py-3">Nama Barang</th>
-                <th scope="col" class="px-6 py-3">Harga</th>
                 <th scope="col" class="px-6 py-3">Kategori</th>
+                <th scope="col" class="px-6 py-3">Nama Barang</th>
+                <th scope="col" class="px-6 py-3">Jumlah</th>
+                <th scope="col" class="px-6 py-3">Tanggal Masuk</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
               </tr>
             </thead>
@@ -53,17 +54,20 @@
                   <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                     {{ $startingRow + $loop->iteration }}
                   </th>
-                  <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                    {{ $barang->nama }}
-                  </th>
-                  <td class="max-w-lg px-6 py-4">
-                    <span class="line-clamp-2">
-                      @currency($barang->harga)
-                    </span>
-                  </td>
                   <td class="px-6 py-4">
                     <span class="text-sm font-medium text-gray-900">
                       {{ $barang->kategori->nama }}
+                    </span>
+                  </td>
+                  <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                    {{ $barang->nama }}
+                  </th>
+                  <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                    {{ $barang->jumlah }}
+                  </th>
+                  <td class="px-6 py-4">
+                    <span class="text-sm font-medium text-gray-900">
+                      {{ $barang->created_at->format('d F Y') }}
                     </span>
                   </td>
                   <td class="px-6 py-4">
@@ -73,8 +77,7 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                       </button>
                     </a>
-                    <form action="{{ route('barang.destroy', $barang->id) }}" method="POST"
-                      class="inline-block">
+                    <form action="{{ route('barang.destroy', $barang->id) }}" method="POST" class="inline-block">
                       @csrf
                       @method('DELETE')
                       <button type="submit" data-toggle="tooltip" title="Delete"

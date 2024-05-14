@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -24,6 +25,7 @@ class BarangController extends Controller
     $startingRow = ($currentPage - 1) * $perPage; // Calculate starting row
 
     $semuaBarang = Barang::query()->paginate(10);
+    $month = Barang::selectRaw('MONTH(created_at) as month')->distinct()->get();
     $semuaKategori = Kategori::all();
     return view('barang.index', compact('semuaBarang', 'semuaKategori', 'startingRow'));
   }
@@ -47,14 +49,26 @@ class BarangController extends Controller
    */
   public function store(Request $request)
   {
-    $request->validate([
-      'nama' => 'required',
-      'kategori_id' => 'required|exists:kategori,id',
-      'harga' => 'required|numeric',
-    ]);
-
     try {
-      Barang::create($request->all());
+      $validator = Validator::make($request->all(), [
+        'nama' => 'required',
+        'kategori_id' => 'required|exists:kategori,id',
+        'jumlah' => 'required|numeric',
+        'tanggal' => 'required|date',
+      ]);
+
+      if ($validator->fails()) {
+        Alert::error($validator->errors()->first(), "Terjadi kesalahan");
+        return back()->withInput();
+      }
+
+      Barang::create([
+        'nama' => $request->nama,
+        'kategori_id' => $request->kategori_id,
+        'jumlah' => $request->jumlah,
+        'harga' => $request->harga,
+        'created_at' => $request->tanggal,
+      ]);
       Alert::toast('Barang berhasil ditambahkan', 'success');
       return redirect()->route('barang.index');
     } catch (\Throwable $th) {
@@ -100,14 +114,26 @@ class BarangController extends Controller
    */
   public function update(Request $request, Barang $barang)
   {
-    $request->validate([
-      'nama' => 'required',
-      'kategori_id' => 'required|exists:kategori,id',
-      'harga' => 'required|numeric',
-    ]);
-
     try {
-      $barang->update($request->all());
+      $validator = Validator::make($request->all(), [
+        'nama' => 'required',
+        'kategori_id' => 'required|exists:kategori,id',
+        'jumlah' => 'required|numeric',
+        'tanggal' => 'required|date',
+      ]);
+
+      if ($validator->fails()) {
+        Alert::error($validator->errors()->first(), "Terjadi kesalahan");
+        return back()->withInput();
+      }
+
+      $barang->update([
+        'nama' => $request->nama,
+        'kategori_id' => $request->kategori_id,
+        'jumlah' => $request->jumlah,
+        'harga' => $request->harga,
+        'created_at' => $request->tanggal,
+      ]);
       Alert::toast('Barang berhasil diubah', 'success');
       return redirect()->route('barang.index');
     } catch (\Throwable $th) {
