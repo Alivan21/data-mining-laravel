@@ -36,30 +36,35 @@
           </div>
           <div class="my-5 flex gap-5 items-end" id="barang-container[0]">
             <div class="flex-1">
-              <label for="barang[0]" class="mb-2 block text-sm font-medium text-gray-900">
-                Barang
+              <label for="bulan" class="mb-2 block text-sm font-medium text-gray-900">
+                Bulan
               </label>
-              <select id="barang[0]" name="barang_id[0]"
+              <select id="bulan" name="bulan"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
                 required>
-                <option value="" disabled selected>Pilih Barang</option>
-                @foreach ($semuaBarang as $barang)
-                  <option value="{{ $barang->id }}">{{ $barang->nama }}</option>
+                <option value="" disabled selected>Pilih Bulan</option>
+                @foreach ($semuaBulan as $key => $bulan)
+                  <option value="{{ $key }}" @if ($key == 5) selected @endif>
+                    {{ $bulan }}
+                  </option>
                 @endforeach
               </select>
             </div>
             <div class="flex-1">
-              <label for="qty[0]" class="mb-2 block text-sm font-medium text-gray-900">
-                Qty
+              <label for="tahun" class="mb-2 block text-sm font-medium text-gray-900">
+                Tahun
               </label>
-              <input type="number" id="qty[0]" name="qty[0]" min="50"
+              <select id="tahun" name="tahun"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
-                required />
+                required>
+                <option value="" disabled selected>Pilih Tahun</option>
+                @foreach ($semuaTahun as $tahun)
+                  <option value="{{ $tahun->tahun }}">
+                    {{ $tahun->tahun }}
+                  </option>
+                @endforeach
+              </select>
             </div>
-            <button type="button" name="add-barang" id="add-barang"
-              class="flex items-center justify-center w-10 h-10 rounded-lg bg-indigo-700 text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300">
-              <i class="fa-solid fa-circle-plus"></i>
-            </button>
           </div>
           <div class="flex">
             <button type="submit"
@@ -71,42 +76,4 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    let i = 0;
-    $("#add-barang").click(function() {
-      i++;
-      $("#add-barang").parent().after(`
-        <div class="my-5 flex gap-5 items-end" id="barang-container[${i}]">
-          <div class="flex-1">
-            <label for="barang[${i}]" class="mb-2 block text-sm font-medium text-gray-900">
-              Barang
-            </label>
-            <select id="barang[${i}]" name="barang_id[${i}]"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
-              required>
-              <option value="" disabled selected>Pilih Barang</option>
-              @foreach ($semuaBarang as $barang)
-                <option value="{{ $barang->id }}">{{ $barang->nama }}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="flex-1">
-            <label for="qty[${i}]" class="mb-2 block text-sm font-medium text-gray-900">
-              Qty
-            </label>
-            <input type="number" id="qty[${i}]" name="qty[${i}]"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
-              required />
-          </div>
-          <button type="button" name="remove-barang" id="remove-barang"
-            class="flex items-center justify-center w-10 h-10 rounded-lg bg-red-700 text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300">
-            <i class="fa-solid fa-circle-xmark"></i>
-          </button>
-        </div>
-      `);
-    });
-    $(document).on("click", "#remove-barang", function() {
-      $(this).closest("div").remove();
-    });
-  </script>
 </x-app-layout>

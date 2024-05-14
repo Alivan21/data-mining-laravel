@@ -16,9 +16,9 @@ class BarangImport implements ToModel
   {
     $current_date = date('Y-m-d H:i:s');
     return new Barang([
-      'nama' => $row[0],
-      'jumlah' => $row[1],
-      'kategori_id' => $row[2],
+      'kategori_id' => $row[0],
+      'nama' => $row[1],
+      'jumlah' => $row[2],
       'created_at' => $current_date,
     ]);
   }

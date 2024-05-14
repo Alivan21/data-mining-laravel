@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,7 +30,7 @@ class PenjualanController extends Controller
     $dataPenjualan = Penjualan::select('no_faktur', 'created_at')
       ->groupBy('no_faktur', 'created_at')
       ->distinct();
-    // Apply filter based on selected month
+
     if ($selectedMonth) {
       $dataPenjualan->whereMonth('created_at', $selectedMonth);
     }
@@ -45,9 +46,21 @@ class PenjualanController extends Controller
    */
   public function create()
   {
-    $semuaBarang = Barang::all();
+    $semuaBulan = Barang::selectRaw('MONTH(created_at) as bulan')
+      ->groupBy('bulan')
+      ->get()
+      ->mapWithKeys(function ($item) {
+        $bulan = str_pad($item->bulan, 2, '0', STR_PAD_LEFT);
+        return [$bulan => $this->getBulanName($bulan)];
+      })
+      ->all();
+
+    $semuaTahun = Barang::selectRaw('YEAR(created_at) as tahun')
+      ->groupBy('tahun')
+      ->get();
+
     $noFaktur = Str::uuid();
-    return view('penjualan.create', compact('semuaBarang', 'noFaktur'));
+    return view('penjualan.create', compact('semuaBulan', 'semuaTahun', 'noFaktur'));
   }
 
   /**
@@ -58,21 +71,32 @@ class PenjualanController extends Controller
    */
   public function store(Request $request)
   {
-    $request->validate([
-      'no_faktur' => 'required',
-      'barang_id.*' => 'required|exists:barang,id',
-      'qty.*' => 'required|numeric|min:50',
-    ]);
-
-    foreach ($request->barang_id as $key => $value) {
-      Penjualan::create([
-        'no_faktur' => $request->no_faktur,
-        'barang_id' => $value,
-        'qty' => $request->qty[$key],
+    try {
+      $validator = Validator::make($request->all(), [
+        'no_faktur' => 'required',
+        'bulan' => 'required',
+        'tahun' => 'required',
       ]);
+
+      if ($validator->fails()) {
+        Alert::error('Penjualan gagal ditambahkan', $validator->errors()->first());
+        return back()->withErrors($validator)->withInput();
+      }
+      $barang = Barang::where('created_at', 'like', '%' . $request->tahun . '-' . $request->bulan . '%')->get();
+
+      foreach ($barang as $item) {
+        Penjualan::create([
+          'no_faktur' => $request->no_faktur,
+          'barang_id' => $item->id,
+          'qty' => $item->jumlah,
+        ]);
+      }
+      Alert::toast('Penjualan berhasil ditambahkan', 'success');
+      return redirect()->route('penjualan.index');
+    } catch (\Throwable $th) {
+      Alert::error('Penjualan gagal ditambahkan', $th->getMessage());
+      return back()->withInput();
     }
-    Alert::toast('Penjualan berhasil ditambahkan', 'success');
-    return redirect()->route('penjualan.index');
   }
 
   /**
@@ -81,9 +105,9 @@ class PenjualanController extends Controller
    * @param  \App\Models\Penjualan  $penjualan
    * @return \Illuminate\Http\Response
    */
-  public function show(Penjualan $penjualan)
+  public function show($penjualan)
   {
-    $penjualan = Penjualan::where('no_faktur', $penjualan->no_faktur)->get();
+    $penjualan = Penjualan::where('no_faktur', $penjualan)->get();
     $no_faktur = $penjualan->first()->no_faktur;
     $semuaBarang = Barang::all();
     return view('penjualan.show', compact('penjualan', 'semuaBarang', 'no_faktur'));
@@ -150,5 +174,25 @@ class PenjualanController extends Controller
       Alert::error("Gagal mengimport data Penjualan", $th->getMessage());
       return back();
     }
+  }
+
+  function getBulanName($bulan)
+  {
+    $bulanNames = [
+      '01' => 'Januari',
+      '02' => 'Februari',
+      '03' => 'Maret',
+      '04' => 'April',
+      '05' => 'Mei',
+      '06' => 'Juni',
+      '07' => 'Juli',
+      '08' => 'Agustus',
+      '09' => 'September',
+      '10' => 'Oktober',
+      '11' => 'November',
+      '12' => 'Desember',
+    ];
+
+    return $bulanNames[$bulan] ?? '';
   }
 }
